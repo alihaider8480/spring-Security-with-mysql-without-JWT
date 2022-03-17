@@ -43,16 +43,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	}
 	
 															//HttpMethod.OPTIONS is lia likha ha taka tamam request admin get kar saka warna HttpMethod.post karta to admin sirf post ki i request ko access karsat=kta tha
-	@Override																		//db ma role ki value ROLE_ADMIN rakha ga ya role ko khud remove kardaga
+	@Override				// .antMatchers("/home","Login","contact).permitAll() is sa har koi request access kar laga //db ma role ki value ROLE_ADMIN rakha ga ya role ko khud remove kardaga
 	protected void configure(HttpSecurity http) throws Exception {                   // ya deafault pop up login ka data hai laking mana isko desable kardia hai
 		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/user/**").hasRole("ADMIN").anyRequest().authenticated().and().httpBasic();
 	}															// ya role based Authentication
 	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();           // ya latest ha dcript wala hack ho chika hai ya wala acha hai phala yapassword ko laga or usko bcript karaga or database ma bhi decrippt form ma honachaeaya
-//		return NoOpPasswordEncoder.getInstance();     /// iska matlaba ha ka password encode na ho normal ma hi rahe 
-	}
+//	auth.inMemoryAuthentication().withUser("ali").password(getPasswordEncoder().encode("123456")).roles("ADMIN");
+//	auth.inMemoryAuthentication().withUser("salman").password(getPasswordEncoder().encode("123456")).roles("NORMAL");
+	
+	
+//	.antMatchers("/public/**").hasRole("NORMAL")  normal role wala is ka tamam request ko dakha sakta ha magar wo home wala url ko access ni karsatkta hai ya role based authentication hai
+//	.antMatchers("/home/**").hasRole("ADMIN")	admin ya tamam ko access kar sakta hai 
+//	.antMatchers("/public/**","/home/**").hasRole("ADMIN") agar ma cha raha ho admin home ka tamam access kara or public ka sara access kara to ma asa kar sakta ho
+	
+	
+	
+//	@Bean
+//	public PasswordEncoder getPasswordEncoder() {
+//		return new BCryptPasswordEncoder();           // ya latest ha dcript wala hack ho chika hai ya wala acha hai phala yapassword ko laga or usko bcript karaga or database ma bhi decrippt form ma honachaeaya
+////		return NoOpPasswordEncoder.getInstance();     /// iska matlaba ha ka password encode na ho normal ma hi rahe 
+//	}
 
 	
 }

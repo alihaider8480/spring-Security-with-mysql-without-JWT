@@ -5,12 +5,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
 public class UserRestController {
 	
-	@GetMapping("/")
+	@GetMapping("/user/")
 	public String home() {
-		return "welcome to spring security";
+		return "admin welcome to spring security";
+	}
+	
+	@GetMapping("/employee/")
+	public String employee() {
+		return "employee welcome to spring security";
 	}
 
 }
